@@ -1,0 +1,1 @@
+python basicShadowUpdater_mod.py -e "a2tn0cafpok0xk.iot.us-east-1.amazonaws.com" -r "VeriSignG5Key.pem" -c "395d0ca28d-certificate.pem.crt" -k "395d0ca28d-private.pem.key"  
