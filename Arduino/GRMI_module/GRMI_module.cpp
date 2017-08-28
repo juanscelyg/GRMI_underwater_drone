@@ -139,6 +139,12 @@ void GRMI_module::initServos()
 	delay(1000); // delay to allow the ESC to recognize the stopped signal
 }
 
+void GRMI_module::GetAcceleration()
+{
+	module_acceleration[0]=p_module_acceleration[0];
+	module_acceleration[1]=p_module_acceleration[1];
+	module_acceleration[2]=p_module_acceleration[2];
+}
 
 void GRMI_module::GetRPYAngles()
 {
@@ -302,6 +308,7 @@ void GRMI_module::calculate()
 void GRMI_module::update()
 {
 	t.update();
+	GetAcceleration();
 	GetRPYAngles();
 	GetCompass();
 	GetPressure();

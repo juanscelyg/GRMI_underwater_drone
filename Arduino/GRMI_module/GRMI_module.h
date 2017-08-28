@@ -31,6 +31,7 @@ class GRMI_module
 	public: 
 		GRMI_module(int, int, int); 
 		void begin(int*);
+		void GetAcceleration(void);
 		void GetRPYAngles(void);
 		void GetCompass(void);
 		void GetPressure(void);
