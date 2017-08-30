@@ -87,3 +87,8 @@ ENV/
 
 # Rope project settings
 .ropeproject
+VeriSignG5Key.pem
+certificate_pem.crt
+public_pem.key
+private_pem.key
+conectar.txt
