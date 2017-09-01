@@ -14,7 +14,7 @@ privateKeyPath = "private_pem.key"
 #myAWSIoTMQTTShadowClient = None
 #Bot = None
 interface_socket = socket.socket()
-arrival_message=''
+arrival_message=None
 mode=0
 
 def init(_mode):
@@ -22,7 +22,10 @@ def init(_mode):
 	mode=_mode
 	aws_check_config()
 	aws_logger()
-	init_aws_shadow_client()
+	if mode==0:
+		init_aws_shadow_client_updater()
+	if mode==1:
+		init_aws_shadow_client_listener()
 	config_aws_shadow_client()
 	aws_connect()
 	create_device_shadow()
@@ -55,7 +58,7 @@ def aws_logger():
 	streamHandler.setFormatter(formatter)
 	logger.addHandler(streamHandler)
 	
-def init_aws_shadow_client():
+def init_aws_shadow_client_updater():
 	global myAWSIoTMQTTShadowClient
 	global rootCAPath
 	global useWebsocket
@@ -66,6 +69,20 @@ def init_aws_shadow_client():
 		myAWSIoTMQTTShadowClient.configureCredentials(rootCAPath)
 	else:
 		myAWSIoTMQTTShadowClient = AWSIoTMQTTShadowClient("basicShadowUpdater")
+		myAWSIoTMQTTShadowClient.configureEndpoint(host, 8883)
+		myAWSIoTMQTTShadowClient.configureCredentials(rootCAPath, privateKeyPath, certificatePath)
+		
+def init_aws_shadow_client_listener():
+	global myAWSIoTMQTTShadowClient
+	global rootCAPath
+	global useWebsocket
+	global host
+	if useWebsocket:
+		myAWSIoTMQTTShadowClient = AWSIoTMQTTShadowClient("basicShadowDeltaListener", useWebsocket=True)
+		myAWSIoTMQTTShadowClient.configureEndpoint(host, 443)
+		myAWSIoTMQTTShadowClient.configureCredentials(rootCAPath)
+	else:
+		myAWSIoTMQTTShadowClient = AWSIoTMQTTShadowClient("basicShadowDeltaListener")
 		myAWSIoTMQTTShadowClient.configureEndpoint(host, 8883)
 		myAWSIoTMQTTShadowClient.configureCredentials(rootCAPath, privateKeyPath, certificatePath)
 		
@@ -112,9 +129,6 @@ def aws_customShadowCallback_Delete(payload, responseStatus, token):
 	if responseStatus == "timeout":
 		print("Delete request " + token + " time out!")
 	if responseStatus == "accepted":
-		#print("~~~~~~~~~~~~~~~~~~~~~~~")
-		#print("Delete request with token: " + token + " accepted!")
-		#print("~~~~~~~~~~~~~~~~~~~~~~~\n\n")
 		pass
 	if responseStatus == "rejected":
 		print("Delete request " + token + " rejected!")
