@@ -16,8 +16,7 @@ AWS_updater.init(1)
 RS485.init('/dev/ttyACM0', 9600)
 try:
 	while True:
-		mensaje=AWS_updater.aws_update_message()
-		print mensaje
+		pass
 
 except KeyboardInterrupt:
 	RS485.close()

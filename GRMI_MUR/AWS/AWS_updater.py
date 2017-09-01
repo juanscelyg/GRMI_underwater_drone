@@ -11,8 +11,8 @@ host = "a2tn0cafpok0xk.iot.us-east-1.amazonaws.com"
 rootCAPath = "VeriSignG5Key.pem"
 certificatePath = "certificate_pem.crt"
 privateKeyPath = "private_pem.key"
-myAWSIoTMQTTShadowClient = None
-Bot = None
+#myAWSIoTMQTTShadowClient = None
+#Bot = None
 interface_socket = socket.socket()
 arrival_message=''
 mode=0
@@ -86,14 +86,15 @@ def create_device_shadow():
 	Bot = myAWSIoTMQTTShadowClient.createShadowHandlerWithName("Bot", True)
 	if mode==0:
 		Bot.shadowDelete(aws_customShadowCallback_Delete, 5)
-	else:
+	if mode==1:
 		Bot.shadowRegisterDeltaCallback(aws_customShadowCallback_Delta)
 	
 def aws_customShadowCallback_Delta(payload, responseStatus, token):
 	global arrival_message
 	payloadDict = json.loads(payload)
-	arrival_message = str(payloadDict["state"]["property"])
-	print("Received Message: " + arrival_message)
+	message_aux = str(payloadDict["state"]["property"])
+	arrival_message=message_aux
+	print("Received Message: " + message_aux)
 	
 def aws_update_message():
 	global arrival_message

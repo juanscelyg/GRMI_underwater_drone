@@ -15,22 +15,12 @@ except:
     exit()
 
 AWS_updater.init(0)
-try:
-	while True:
-		mensaje = AWS_updater.interface_socket.recv(8)
-		mensaje = mensaje + "\n"
-		print ('--------------------------------------------------------------')
-		print mensaje
-		print ('--------------------------------------------------------------')
-		JSONPayload = '{"state":{"desired":{"property":' + str(mensaje) + '}}}'
-		AWS_updater.Bot.shadowUpdate(JSONPayload, AWS_updater.aws_customShadowCallback_Update, 5)
-		time.sleep(1)
-except KeyboardInterrupt:
-	AWS_updater.close_socket()
-	exit()
-	
-finally:
-	AWS_updater.close_socket()
-	exit()
-	
-		 
+while True:
+	mensaje = AWS_updater.interface_socket.recv(8)
+	mensaje = mensaje + "\n"
+	print ('--------------------------------------------------------------')
+	print mensaje
+	print ('--------------------------------------------------------------')
+	JSONPayload = '{"state":{"desired":{"property":' + str(mensaje) + '}}}'
+	AWS_updater.Bot.shadowUpdate(JSONPayload, AWS_updater.aws_customShadowCallback_Update, 5)
+	time.sleep(1)
