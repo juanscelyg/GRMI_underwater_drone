@@ -16,11 +16,9 @@ except:
 
 AWS_updater.init(0)
 while True:
-	mensaje = AWS_updater.interface_socket.recv(8)
-	mensaje = mensaje + "\n"
+	mensaje = AWS_updater.interface_socket.recv(AWS_updater.aws_size_frame())
 	print ('--------------------------------------------------------------')
 	print mensaje
-	print ('--------------------------------------------------------------')
-	JSONPayload = '{"state":{"desired":{"property":' + str(mensaje) + '}}}'
-	AWS_updater.Bot.shadowUpdate(JSONPayload, AWS_updater.aws_customShadowCallback_Update, 5)
+	print ('--------------------------------------------------------------')	
+	AWS_updater.Bot.shadowUpdate(aws_create_payload(message), AWS_updater.aws_customShadowCallback_Update, 5)
 	time.sleep(1)

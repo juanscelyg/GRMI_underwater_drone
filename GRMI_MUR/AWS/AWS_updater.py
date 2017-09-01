@@ -130,6 +130,14 @@ def aws_update_message():
 	global arrival_message
 	return arrival_message
 	
+def aws_size_frame():
+	size_frame=8;
+	return size_frame
+	
+def aws_create_payload(message_to_change):
+	JSONPayload = '{"state":{"desired":{"property":' + str(message_to_change) + '}}}'
+	return JSONPayload
+	
 def aws_customShadowCallback_Update(payload, responseStatus, token):
 	if responseStatus == "timeout":
 		print("Update request " + token + " time out!")
