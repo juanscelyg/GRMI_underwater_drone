@@ -1,17 +1,25 @@
 '''
 Test to conect the robot to mov
-
-
 '''
 try:
     import GRMI_MUR.Simulate.vrep as vrep
+    import GRMI_MUR.AWS_updater as AWS_updater
+    import GRMI_MUR.Physical.RS485 as RS485
 except:
     print ('--------------------------------------------------------------')
     print ('There Was a problem with the import. Check it please.')
     print ('--------------------------------------------------------------')
 
 import time
-
+AWS_updater.init(1)
+RS485.init('/dev/ttyACM0', 9600)
+while True:
+	pass
+	
+except KeyboardInterrupt:
+	RS485.close()
+	exit()
+'''
 print ('Program started')
 vrep.simxFinish(-1) # just in case, close all opened connections
 clientID=vrep.simxStart('127.0.0.1',19999,True,True,5000,5) # Connect to V-REP
@@ -46,3 +54,5 @@ if clientID!=-1:
 else:
     print ('Failed connecting to remote API server')
 print ('Program ended')
+'''
+

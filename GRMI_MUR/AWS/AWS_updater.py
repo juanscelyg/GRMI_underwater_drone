@@ -14,15 +14,20 @@ privateKeyPath = "private_pem.key"
 myAWSIoTMQTTShadowClient = None
 Bot = None
 interface_socket = socket.socket()
+arrival_message='';
+mode=0
 
-def iniciar():
+def init(_mode):
+	global mode
+	mode=_mode
 	aws_check_config()
 	aws_logger()
 	init_aws_shadow_client()
 	config_aws_shadow_client()
 	aws_connect()
 	create_device_shadow()
-	create_socket()
+	if mode==0:
+		create_socket()
 
 def aws_check_config():
 	missingConfiguration = False
@@ -77,8 +82,22 @@ def aws_connect():
 def create_device_shadow():
 	global myAWSIoTMQTTShadowClient
 	global Bot
+	global mode
 	Bot = myAWSIoTMQTTShadowClient.createShadowHandlerWithName("Bot", True)
-	Bot.shadowDelete(aws_customShadowCallback_Delete, 5)
+	if mode==0:
+		Bot.shadowDelete(aws_customShadowCallback_Delete, 5)
+	else:
+		Bot.shadowRegisterDeltaCallback(aws_customShadowCallback_Delta)
+	
+def aws_customShadowCallback_Delta(payload, responseStatus, token):
+	global arrival_message
+	payloadDict = json.loads(payload)
+	arrival_message = str(payloadDict["state"]["property"])
+	print("Received Message: " + arrival_message)
+	
+def aws_update_message()
+	global arrival_message
+	return arrival_message
 	
 def aws_customShadowCallback_Update(payload, responseStatus, token):
 	if responseStatus == "timeout":

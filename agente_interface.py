@@ -1,7 +1,9 @@
 '''
-Test to conect the robot to mov
-
-
+Code to connect the interface with the updater AWS
+@version 0.1
+@author Juan Cely <juanscelyg@gmail.com>
+Research Group of Robots and Intelligent Machines
+Date: August/2017
 '''
 try:
 	import GRMI_MUR.AWS.AWS_updater as AWS_updater
@@ -12,8 +14,7 @@ except:
     print ('--------------------------------------------------------------')
     exit()
 
-AWS_updater.iniciar()
-# Update shadow in a loop
+AWS_updater.init(0)
 try:
 	while True:
 		mensaje = AWS_updater.interface_socket.recv(8)
