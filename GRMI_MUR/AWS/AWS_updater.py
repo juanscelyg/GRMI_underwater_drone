@@ -1,3 +1,18 @@
+'''
+AWS Self-Module
+AWS_update  
+@version 0.1
+@author Juan Cely <juanscelyg@gmail.com>
+Research Group of Robots and Intelligent Machines
+Date: August/2017
+
+@param mode
+	mode==0 ---> update mode
+	mode==1 ---> listen mode
+	If you need to have two instances, you should type tow differente 
+	codes, one to update the info in AWS and another to listen the
+	new information updated in AWS.
+'''
 from AWSIoTPythonSDK.MQTTLib import AWSIoTMQTTShadowClient
 import sys
 import logging
@@ -11,10 +26,8 @@ host = "a2tn0cafpok0xk.iot.us-east-1.amazonaws.com"
 rootCAPath = "VeriSignG5Key.pem"
 certificatePath = "certificate_pem.crt"
 privateKeyPath = "private_pem.key"
-#myAWSIoTMQTTShadowClient = None
-#Bot = None
 interface_socket = socket.socket()
-arrival_message=None
+arrival_message=''
 mode=0
 
 def init(_mode):

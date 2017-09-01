@@ -1,3 +1,19 @@
+'''
+Physical Module
+RS485  
+@version 0.1
+@author Juan Cely <juanscelyg@gmail.com>
+Research Group of Robots and Intelligent Machines
+Date: August/2017
+
+@param port_name
+	It is the port name, in string format. For example, if you are using
+	MS Windows with the COM3 and 9600 baudrate, the code will be as: 
+	GRMI_MUR.Physical.RS485.init('COM3',9600)
+@param baudrate_port
+	It is the port baudrate. Remember all operativ system has differents
+	baudrate to work correctly. Check the os documentation. 
+'''
 import serial
 import time
 import sys
