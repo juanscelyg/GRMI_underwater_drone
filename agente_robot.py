@@ -2,7 +2,7 @@
 Test to conect the robot to mov
 '''
 try:
-    import GRMI_MUR.Simulate.vrep as vrep
+    #import GRMI_MUR.Simulate.vrep as vrep
     import GRMI_MUR.AWS.AWS_updater as AWS_updater
     import GRMI_MUR.Physical.RS485 as RS485
     import time
@@ -16,7 +16,8 @@ AWS_updater.init(1)
 RS485.init('/dev/ttyACM0', 9600)
 try:
 	while True:
-		pass
+		mensaje=AWS_updater.aws_update_message()
+		print mensaje
 
 except KeyboardInterrupt:
 	RS485.close()
