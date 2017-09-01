@@ -14,7 +14,7 @@ privateKeyPath = "private_pem.key"
 myAWSIoTMQTTShadowClient = None
 Bot = None
 interface_socket = socket.socket()
-arrival_message='';
+arrival_message=''
 mode=0
 
 def init(_mode):
@@ -95,7 +95,7 @@ def aws_customShadowCallback_Delta(payload, responseStatus, token):
 	arrival_message = str(payloadDict["state"]["property"])
 	print("Received Message: " + arrival_message)
 	
-def aws_update_message()
+def aws_update_message():
 	global arrival_message
 	return arrival_message
 	
@@ -111,9 +111,10 @@ def aws_customShadowCallback_Delete(payload, responseStatus, token):
 	if responseStatus == "timeout":
 		print("Delete request " + token + " time out!")
 	if responseStatus == "accepted":
-		print("~~~~~~~~~~~~~~~~~~~~~~~")
-		print("Delete request with token: " + token + " accepted!")
-		print("~~~~~~~~~~~~~~~~~~~~~~~\n\n")
+		#print("~~~~~~~~~~~~~~~~~~~~~~~")
+		#print("Delete request with token: " + token + " accepted!")
+		#print("~~~~~~~~~~~~~~~~~~~~~~~\n\n")
+		pass
 	if responseStatus == "rejected":
 		print("Delete request " + token + " rejected!")
 		
