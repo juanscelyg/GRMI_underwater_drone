@@ -13,8 +13,9 @@ except:
 import time
 AWS_updater.init(1)
 RS485.init('/dev/ttyACM0', 9600)
-while True:
-	pass
+try:
+	while True:
+		pass
 	
 except KeyboardInterrupt:
 	RS485.close()
