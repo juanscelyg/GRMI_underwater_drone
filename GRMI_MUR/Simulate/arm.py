@@ -1,11 +1,25 @@
 '''
-Test to conect the robot to mov
+VREP self-module
+arm 
+@version 0.1
+@author Juan Cely <juanscelyg@gmail.com>
+Research Group of Robots and Intelligent Machines
+Date: August/2017
+
+@param sim_ip
+	This parameter is the ip address where the simulation is running. It
+	would be some address in the local net or the localhost, it should 
+	be in string format and IPV4 version.
+
+@param sim_port
+	It is the port in the ip address where it is the simulation listening
+	the data. Default is 19999, check the config simulation. 
 '''
 try:
     import GRMI_MUR.Simulate.vrep as vrep
 except:
     print ('--------------------------------------------------------------')
-    print ('There Was a problem with the import. Check it please.')
+    print ('There was a problem with imports. Check it, please.')
     print ('--------------------------------------------------------------')
     exit()
 

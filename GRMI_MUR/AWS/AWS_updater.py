@@ -131,7 +131,7 @@ def aws_update_message():
 	return arrival_message
 	
 def aws_size_frame():
-	size_frame=8;
+	size_frame=24;
 	return size_frame
 	
 def aws_create_payload(message_to_change):

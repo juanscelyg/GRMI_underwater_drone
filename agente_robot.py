@@ -11,7 +11,7 @@ try:
     import time
 except:
     print ('--------------------------------------------------------------')
-    print ('There Was a problem with the import. Check it please.')
+    print ('There was a problem with imports. Check it, please.')
     print ('--------------------------------------------------------------')
     exit()
 
