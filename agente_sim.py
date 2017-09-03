@@ -8,6 +8,7 @@ Date: August/2017
 try:
     import GRMI_MUR.AWS.AWS_updater as AWS_updater
     import GRMI_MUR.Simulate.arm as vrep_arm
+    import GRMI_MUR.Common.converter as AWS_converter
     import time
 except:
     print ('--------------------------------------------------------------')
@@ -22,6 +23,11 @@ vrep_arm.init('192.168.4.104',19999)
 try:
 	while True:
 		message_info=AWS_updater.aws_update_message()
+		if len(message_info) == AWS_updater.aws_size_frame():
+			target_id,target_event, values=AWS_converter.aws2int()
+		if target_event==1:
+			for i in range(1,len(values)+1):
+				vrep_arm.SetJointPosition(i,values[i-1])
 
 except KeyboardInterrupt:
 	exit()
