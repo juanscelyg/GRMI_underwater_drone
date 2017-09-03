@@ -18,6 +18,7 @@ except:
 
 AWS_updater.init(1)
 vrep_arm.init('192.168.4.104',19999)
+device_id=101
 
 ### While loop to received info
 try:
@@ -25,9 +26,11 @@ try:
 		message_info=AWS_updater.aws_update_message()
 		if len(message_info) == AWS_updater.aws_size_frame():
 			target_id,target_event, values=AWS_converter.aws2int()
-		if target_event==1:
-			for i in range(1,len(values)+1):
-				vrep_arm.SetJointPosition(i,values[i-1])
+		if device_id==target_id:
+			if target_event==1:
+				for i in range(1,len(values)+1):
+					vrep_arm.SetJointPosition(i,values[i-1])
+					time.sleep(0.2)
 
 except KeyboardInterrupt:
 	exit()
