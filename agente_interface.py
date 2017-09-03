@@ -20,5 +20,5 @@ while True:
 	print ('--------------------------------------------------------------')
 	print mensaje
 	print ('--------------------------------------------------------------')	
-	AWS_updater.Bot.shadowUpdate(aws_create_payload(message), AWS_updater.aws_customShadowCallback_Update, 5)
+	AWS_updater.Bot.shadowUpdate(AWS_updater.aws_create_payload(mensaje), AWS_updater.aws_customShadowCallback_Update, 5)
 	time.sleep(1)

@@ -25,7 +25,7 @@ try:
 	while True:
 		message_info=AWS_updater.aws_update_message()
 		if len(message_info) == AWS_updater.aws_size_frame():
-			target_id,target_event, values=AWS_converter.aws2int()
+			target_id,target_event, values=AWS_converter.aws2int(message_info)
 			if device_id==target_id:
 				if target_event==1:
 					for i in range(1,len(values)+1):
