@@ -29,7 +29,7 @@ try:
 			if device_id==target_id:
 				if target_event==1:
 					for i in range(1,len(values)+1):
-						vrep_arm.SetJointPosition(i,values[i-1])
+						vrep_arm.SetTargetPosition(i,values[i-1])
 						time.sleep(0.2)
 
 except KeyboardInterrupt:
