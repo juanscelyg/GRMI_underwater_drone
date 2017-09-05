@@ -17,6 +17,7 @@ Date: August/2017
 '''
 try:
     import GRMI_MUR.Simulate.vrep as vrep
+    import GRMI_MUR.Arm.arm_parts as Arm_parts
 except:
     print ('--------------------------------------------------------------')
     print ('There was a problem with imports. Check it, please.')
@@ -46,8 +47,15 @@ def init(sim_ip,sim_port):
 def SetTargetPosition(sim_joint,sim_value):
 	global clientID
 	# Here into the main code to move the robot
-	errorCode,q1_motor_handle=vrep.simxGetObjectHandle(clientID,dic_sim_joint[sim_joint-1],vrep.simx_opmode_oneshot_wait)
-	vrep.simxSetJointTargetPosition(clientID,q1_motor_handle,sim_value,vrep.simx_opmode_oneshot_wait)
+	errorCode,q_motor_handle=vrep.simxGetObjectHandle(clientID,dic_sim_joint[sim_joint-1],vrep.simx_opmode_oneshot_wait)
+	vrep.simxSetJointTargetPosition(clientID,q_motor_handle,sim_value,vrep.simx_opmode_oneshot_wait)
+	
+def GetPosition():
+	global clientID
+	for i in range(0, Arm_parts.GetDOF()):
+		errorCode,q_motor_handle=vrep.simxGetObjectHandle(clientID,dic_sim_joint[i],vrep.simx_opmode_oneshot_wait)
+		errorCode,position[i]=simxGetJointPosition(clientID,q_motor_handle,vrep.simx_opmode_oneshot_wait)
+	return position
 
 def close():
 	global clientID

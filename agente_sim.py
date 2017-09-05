@@ -9,6 +9,7 @@ try:
     import GRMI_MUR.AWS.AWS_updater as AWS_updater
     import GRMI_MUR.Simulate.arm as vrep_arm
     import GRMI_MUR.Common.converter as AWS_converter
+    import GRMI_MUR.Arm.path616 as Path616
     import time
 except:
     print ('--------------------------------------------------------------')
@@ -16,6 +17,7 @@ except:
     print ('--------------------------------------------------------------')
     exit()
 
+### While loop to received info
 AWS_updater.init(1)
 vrep_arm.init('192.168.4.104',19999)
 device_id=101
@@ -31,6 +33,10 @@ try:
 					for i in range(1,len(values)+1):
 						vrep_arm.SetTargetPosition(i,values[i-1])
 						time.sleep(0.2)
+				if target_event==2:
+					q1,q2,q3,q4,q5=Inversekine.inversekine(values)
+				if target_event==3:
+					qs=Path616.planificador_616(x,y,z,theta,phi,Ttol,Tac,n)
 
 except KeyboardInterrupt:
 	exit()

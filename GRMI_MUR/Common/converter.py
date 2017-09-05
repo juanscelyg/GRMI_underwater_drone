@@ -20,8 +20,12 @@ Date: August/2017
 	It is a list, where it has the information above 5 parameters. These
 	numbers must be integers, the operation doesnt support another format
 	numbers.
+	
+@param ang
+	It it the ang in radians to do the rotation.
 '''
 import math
+import numpy as np
 
 def aws2int(message_info):
 	param=[0,0,0,0,0]
@@ -64,3 +68,19 @@ def int2aws(target_id,target_event,param):
 	message_head=str(target_id)+str(target_event)
 	message_out=message_head+message_info
 	return message_out
+
+def roty(ang):
+	ct = math.cos(ang);
+	st = math.sin(ang);
+	R=np.matrix([[ct,0,st],[0,1,0],[-st,0,ct]])
+	return R
+	
+def rotz(ang):
+	ct = math.cos(ang);
+	st = math.sin(ang);
+	w,h=3,3;
+	R=np.matrix([[ct,-st,0],[st,ct,0],[0,0,1]])
+	return R
+	
+	
+	
