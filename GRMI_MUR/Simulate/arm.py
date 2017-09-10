@@ -52,9 +52,10 @@ def SetTargetPosition(sim_joint,sim_value):
 	
 def GetPosition():
 	global clientID
+	position=[0.0,0.0,0.0,0.0,0.0]
 	for i in range(0, Arm_parts.GetDOF()):
 		errorCode,q_motor_handle=vrep.simxGetObjectHandle(clientID,dic_sim_joint[i],vrep.simx_opmode_oneshot_wait)
-		errorCode,position[i]=simxGetJointPosition(clientID,q_motor_handle,vrep.simx_opmode_oneshot_wait)
+		errorCode,position[i]=vrep.simxGetJointPosition(clientID,q_motor_handle,vrep.simx_opmode_oneshot_wait)
 	return position
 
 def close():

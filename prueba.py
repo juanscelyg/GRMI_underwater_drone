@@ -5,7 +5,7 @@ import GRMI_MUR.Arm.path616 as Path616
 import GRMI_MUR.Simulate.arm as vrep_arm
 import GRMI_MUR.Common.converter as AWS_converter
 import time
-
+'''
 x=0.1534
 y=-0.0430
 z=0.4129
@@ -17,7 +17,7 @@ y=-0.0281
 z=0.0839
 theta=83.33
 phi=-140
-'''
+
 q1,q2,q3,q4,q5=Arm_kine.inversekine(x,y,z,theta,phi)
 print q1
 print q2

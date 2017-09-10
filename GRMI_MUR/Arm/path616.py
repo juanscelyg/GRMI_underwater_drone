@@ -9,14 +9,16 @@ def planificador_616(x,y,z,theta,phi,Ttol,Tac,n):
 		n=10;
 	qo=vrep_arm.GetPosition()
 	qf=Arm_kine.inversekine(x,y,z,theta,phi)
-	for i in range(0,len(qo)):
+	dq=np.arange(5, dtype=np.float)
+	dq[0]=(qo[0]-qf[0])/(n+1)
+	for i in range(1,len(qo)):
 		dq[i]=(qo[i]-qf[i])/(n+1);
-	
-	q=qo;
+	q=np.indices(n+1, len(qo))
+	q[0,:]=qo;
 	dt=Ttol/(n+1);
-	tiempo[0]=0;
+	tiempo=np.arange(n+1, dtype=np.float)
 	for i in range(1,n+1):
-		q=np.append([q],[q[i-1]-dq],axis=0)
+		q[i,:]=(q[i-1,:]-dq)
 	for i in range(1,n+1):
 	    tiempo=np.append([tiempo],[tiempo[i-1]+dt],axis=0)
 	q=np.append([q],[qf],axis=0)

@@ -28,26 +28,29 @@ import math
 import numpy as np
 
 def aws2int(message_info):
-	param=[0,0,0,0,0]
+	param=[0.0,0.0,0.0,0.0,0.0]
 	param_out=[0,0,0,0,0]
 	sense=[0,0,0,0,0]
 	target_id=int(message_info[0:3])
 	target_event=int(message_info[3])
-	param[0]=int(message_info[4:7])
+	param[0]=float(message_info[4:7])
 	sense[0]=int(message_info[7])
-	param[1]=int(message_info[8:11])
+	param[1]=float(message_info[8:11])
 	sense[1]=int(message_info[11])
-	param[2]=int(message_info[12:15])
+	param[2]=float(message_info[12:15])
 	sense[2]=int(message_info[15])
-	param[3]=int(message_info[16:19])
+	param[3]=float(message_info[16:19])
 	sense[3]=int(message_info[19])
-	param[4]=int(message_info[20:23])
+	param[4]=float(message_info[20:23])
 	sense[4]=int(message_info[23])
 	for i in range(0,len(sense)):
 		if sense[i]==1:
 			param_out[i]=-param[i]
 		else:
 			param_out[i]=param[i]
+	for i in range(0,len(sense)): 
+		if i<3:
+			param_out[i]=param[i]/1000
 	return target_id,target_event,param_out
 	
 	
