@@ -83,7 +83,6 @@ def inversekine(x,y,z,theta,phi):
 		q_f=round(qf[0],N)
 		for i in range(1,len(qf)):
 			q_f=np.append([q_f],[round(qf[i],N)])
-		print q_f
 	return q_f
 	
 def directkine(q1,q2,q3,q4,q5):

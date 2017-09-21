@@ -31,4 +31,13 @@ def GetDH():
 def GetDOF():
 	return 5
 	
+def GetMass():
+	m1=0.329
+	m2=0.318 
+	m3=0.318 
+	m4=0.291 
+	m5=0.399
+	m=[m1, m2, m3, m4, m5]
+	return m
+	
 	

@@ -4,7 +4,7 @@ import GRMI_MUR.Simulate.arm as vrep_arm
 import math
 import numpy as np
 
-def planificador_616(x,y,z,theta,phi,Ttol,Tac,n):
+def planner_616(x,y,z,theta,phi,Ttol,Tac,n):
 	if n<10:
 		n=10;
 	qo=vrep_arm.GetPosition()
