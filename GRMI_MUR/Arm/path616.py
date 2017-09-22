@@ -13,28 +13,23 @@ def planner_616(x,y,z,theta,phi,Ttol,Tac,n):
 	dq[0]=(qo[0]-qf[0])/(n+1)
 	for i in range(1,len(qo)):
 		dq[i]=(qo[i]-qf[i])/(n+1);
-	q=np.indices(n+1, len(qo))
+	q=np.empty([n+1, len(qo)])
 	q[0,:]=qo;
 	dt=Ttol/(n+1);
-	tiempo=np.arange(n+1, dtype=np.float)
+	tiempo=np.arange(0,n+1,dt)
 	for i in range(1,n+1):
 		q[i,:]=(q[i-1,:]-dq)
-	for i in range(1,n+1):
-	    tiempo=np.append([tiempo],[tiempo[i-1]+dt],axis=0)
-	q=np.append([q],[qf],axis=0)
-	tiempo=np.append([tiempo],[Ttol],axis=0)
+	q=np.insert(q, len(q), qf,axis=0)
 	#Velocities
-	qp=np.diff(q[:,0])
-	for i in range(1,len(qo)):
-		qp=np.append([qp],[np.diff(q[:,i])])
-	Vmax=np.mean(qp[:,0])
-	for i in range(1,len(qo)):
-	    Vmax=np.append([Vmax],[np.mean(qp[:,i])])
+	qp=np.diff(q, axis=0)
+	Vmax=np.mean(qp, axis=0)
 	#Soft
 	#q soft
-	qs=qo;
+	qs=np.empty([len(tiempo),len(qo)])
+	for i in range(0,len(qo)):
+		qs[0,i]=qo[i];
 	for j in range(0,len(qo)):
-		q_o=qo[0,j]
+		q_o=qo[j]
 		for i in range(1,len(tiempo)):
 			tn=tiempo[i];
 			if tn<=Tac:
@@ -59,5 +54,7 @@ def planner_616(x,y,z,theta,phi,Ttol,Tac,n):
 				c5=(3/(Tac**4))*Vmax[j];
 				c6=(-1/(Tac**5))*Vmax[j];
 				qs[i,j]=(c6*(t**6))+(c5*(t**5))+(c4*(t**4))+(c3*(t**3))+(c2*(t**2))+(c1*t)+c0;
-	return qs
+	qp_s=np.diff(qs, axis=0)
+	qpp_s=np.diff(qp_s, axis=0)
+	return np.round(qs,4), np.round(qp_s,4), np.round(qpp_s,4)
 	

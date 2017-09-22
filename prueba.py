@@ -37,4 +37,19 @@ print values
 # Jacobian
 j=Arm_kine.jacobiana_matrix(q1,q2,q3,q4,q5)
 print j
-
+# Path
+vrep_arm.init('192.168.4.111',19999)
+Ttol=30
+Tac=2.5
+n=20
+qs,qp,qpp=Path616.planner_616(x,y,z,theta,phi,Ttol,Tac,n)
+print '---'
+print qs
+print len(qs)
+print '---'
+print qp
+print len(qp)
+print '---'
+print qpp
+print len(qpp)
+print '---'
