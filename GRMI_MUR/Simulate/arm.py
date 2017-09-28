@@ -15,14 +15,10 @@ Date: August/2017
 	It is the port in the ip address where it is the simulation listening
 	the data. Default is 19999, check the config simulation. 
 '''
-try:
-    import GRMI_MUR.Simulate.vrep as vrep
-    import GRMI_MUR.Arm.arm_parts as Arm_parts
-except:
-    print ('--------------------------------------------------------------')
-    print ('There was a problem with imports. Check it, please.')
-    print ('--------------------------------------------------------------')
-    exit()
+
+import GRMI_MUR.Simulate.vrep as vrep
+import GRMI_MUR.Arm.arm_parts as Arm_parts
+import numpy as np
 
 dic_sim_joint=dict()
 dic_sim_joint[0]='MURA_joint1'
@@ -56,7 +52,7 @@ def GetPosition():
 	for i in range(0, Arm_parts.GetDOF()):
 		errorCode,q_motor_handle=vrep.simxGetObjectHandle(clientID,dic_sim_joint[i],vrep.simx_opmode_oneshot_wait)
 		errorCode,position[i]=vrep.simxGetJointPosition(clientID,q_motor_handle,vrep.simx_opmode_oneshot_wait)
-	return position
+	return np.round(position,4)
 
 def close():
 	global clientID

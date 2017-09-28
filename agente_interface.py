@@ -14,6 +14,10 @@ except:
     print ('--------------------------------------------------------------')
     exit()
 
+AWS_updater.SetAWSHost("a2tn0cafpok0xk.iot.us-east-1.amazonaws.com")
+AWS_updater.SetAWSroot("VeriSignG5Key.pem")
+AWS_updater.SetAWSCert("certificate_pem.crt")
+AWS_updater.SetAWSKey("private_pem.key")
 AWS_updater.init(0)
 while True:
 	mensaje = AWS_updater.interface_socket.recv(AWS_updater.aws_size_frame())

@@ -29,7 +29,7 @@ def GetDH():
 	return DH
     
 def GetDOF():
-	return 5
+	return num
 	
 def GetMass():
 	m1=0.329

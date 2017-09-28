@@ -15,6 +15,10 @@ except:
     print ('--------------------------------------------------------------')
     exit()
 
+AWS_updater.SetAWSHost("a2tn0cafpok0xk.iot.us-east-1.amazonaws.com")
+AWS_updater.SetAWSroot("VeriSignG5Key.pem")
+AWS_updater.SetAWSCert("certificate_pem.crt")
+AWS_updater.SetAWSKey("private_pem.key")
 AWS_updater.init(1)
 RS485.init('/dev/ttyACM0', 9600)
 

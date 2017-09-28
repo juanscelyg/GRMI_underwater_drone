@@ -22,14 +22,31 @@ import getopt
 import socket
 
 useWebsocket = False
-host = "a2tn0cafpok0xk.iot.us-east-1.amazonaws.com"
-rootCAPath = "VeriSignG5Key.pem"
-certificatePath = "certificate_pem.crt"
-privateKeyPath = "private_pem.key"
 interface_socket = socket.socket()
 arrival_message=''
 mode=0
+host = ""
+rootCAPath = ""
+certificatePath = ""
+privateKeyPath = ""
 
+
+def SetAWSHost(inHost):
+	global host
+	host=inHost
+	
+def SetAWSroot(inroot):
+	global rootCAPath
+	rootCAPath=inroot
+	
+def SetAWSCert(incert):
+	global certificatePath
+	certificatePath=incert
+	
+def SetAWSKey(inkey):
+	global privateKeyPath
+	privateKeyPath=inkey
+	
 def init(_mode):
 	global mode
 	mode=_mode
@@ -46,6 +63,10 @@ def init(_mode):
 		create_socket()
 
 def aws_check_config():
+	global host
+	global rootCAPath
+	global privateKeyPath
+	global certificatePath
 	missingConfiguration = False
 	if not host:
 		print("Missing '-e' or '--endpoint'")

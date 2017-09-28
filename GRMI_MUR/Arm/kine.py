@@ -110,6 +110,36 @@ def directkine(q1,q2,q3,q4,q5):
 	A45=np.matrix([[c5,-s5,0,0],[s5,c5,0,0],[0,0,1,l3],[0,0,0,1]])
 	return np.round(A01*A12*A23*A34*A45,4)
 	
+def directkine_A01(q1):
+	c1=math.cos(q1)
+	s1=math.sin(q1)
+	A01=np.matrix([[c1,0,-s1,l1*c1],[s1,0,c1,l1*s1],[0,-1,0,0],[0,0,0,1]])
+	return A01
+
+def directkine_A12(q2):
+	c2=math.cos(q2)
+	s2=math.sin(q2)
+	A12=np.matrix([[c2,-s2,0,l2*c2],[s2,c2,0,l2*s2],[0,0,1,0],[0,0,0,1]])
+	return A12
+	
+def directkine_A23(q3):
+	c3=math.cos(q3)
+	s3=math.sin(q3)
+	A23=np.matrix([[c3,-s3,0,l2*c3],[s3,c3,0,l2*s3],[0,0,1,0],[0,0,0,1]])
+	return A23
+	
+def directkine_A34(q4):
+	c4=math.cos(q4)
+	s4=math.sin(q4)
+	A34=np.matrix([[c4,0,-s4,0],[s4,0,c4,0],[0,-1,0,-l4],[0,0,0,1]])
+	return A34
+	
+def directkine_A45(q5):
+	c5=math.cos(q5)
+	s5=math.sin(q5)
+	A45=np.matrix([[c5,-s5,0,0],[s5,c5,0,0],[0,0,1,l3],[0,0,0,1]])
+	return A45
+	
 def jacobiana_matrix(q1,q2,q3,q4,q5):
 	DH=Arm_parts.GetDH()
 	num_dof=Arm_parts.GetDOF()
