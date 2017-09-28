@@ -47,6 +47,11 @@ try:
 					x=values[0];y=values[1];z=values[2];theta=values[3];phi=values[4]
 					Ttol=20;Tac=2.6;n=30
 					qs,qp,qpp,tiempo=arm_move.planner_616(x,y,z,theta,phi,Ttol,Tac,n)
+					for i in range(len(qs)):
+						for j in range(1,Arm_parts.GetDOF()+1):
+							vrep_arm.SetTargetPosition(j,qs[i,j-1])
+							time.sleep(0.2)
+							
 
 except KeyboardInterrupt:
 	exit()
