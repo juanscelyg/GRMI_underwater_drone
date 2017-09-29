@@ -7,6 +7,7 @@ Date: August/2017
 '''
 try:
 	import GRMI_MUR.AWS.AWS_updater as AWS_updater
+	import GRMI_MUR.Arm.arm_parts as Arm_parts
 	import GRMI_MUR.Simulate.arm as vrep_arm
 	import GRMI_MUR.Common.converter as AWS_converter
 	import GRMI_MUR.Arm.move as arm_move
@@ -49,10 +50,9 @@ try:
 					x=values[0];y=values[1];z=values[2];theta=values[3];phi=values[4]
 					Ttol=20;Tac=2.6;n=30
 					qs,qp,qpp,tiempo=arm_move.planner_616(x,y,z,theta,phi,Ttol,Tac,n)
-					qo=np.matrix([len(qs),Arm_parts.GetDOF()])
+					qo=np.empty([len(qs),Arm_parts.GetDOF()])
 					for i in range(len(qs)):
-						qm=vrep_arm.GetPosition()
-						qo[i,:]=[qm[0],qm[1],qm[2],qm[3],qm[4]]
+						qo[i,:]=vrep_arm.GetPosition()
 						for j in range(1,Arm_parts.GetDOF()+1):
 							vrep_arm.SetTargetPosition(j,qs[i,j-1])
 							time.sleep(0.02)
