@@ -51,14 +51,14 @@ try:
 					qs,qp,qpp,tiempo=arm_move.planner_616(x,y,z,theta,phi,Ttol,Tac,n)
 					qo=np.matrix([len(qs),Arm_parts.GetDOF()])
 					for i in range(len(qs)):
-						qo[i,:]=vrep_arm.GetPosition()
+						qm=vrep_arm.GetPosition()
+						qo[i,:]=[qm[0],qm[1],qm[2],qm[3],qm[4]]
 						for j in range(1,Arm_parts.GetDOF()+1):
 							vrep_arm.SetTargetPosition(j,qs[i,j-1])
 							time.sleep(0.02)
 					plt.figure()
 					plt.plot(tiempo,qs)
 					plt.legend(('q1','q2','q3','q4','q5'))
-					plt.show()
 					plt.figure()
 					plt.plot(tiempo,qo)
 					plt.legend(('q1','q2','q3','q4','q5'))
